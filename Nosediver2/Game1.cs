@@ -9,6 +9,11 @@ namespace Nosediver2
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        const int WINDOW_WIDTH = 1920;
+        const int WINDOW_HEIGHT = 1080;
+
+        Player player;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -18,7 +23,10 @@ namespace Nosediver2
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            _graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
+            _graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
+            _graphics.IsFullScreen = true;
+            _graphics.ApplyChanges();
 
             base.Initialize();
         }
@@ -27,7 +35,7 @@ namespace Nosediver2
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            player = new Player(Content.Load<Texture2D>("diver"), new Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
         }
 
         protected override void Update(GameTime gameTime)
@@ -35,7 +43,7 @@ namespace Nosediver2
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            player.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -44,7 +52,9 @@ namespace Nosediver2
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+            player.Draw(_spriteBatch);
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
