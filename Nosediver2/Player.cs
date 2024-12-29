@@ -9,7 +9,10 @@ namespace Nosediver2
         Texture2D sprite;
         Vector2 position;
         Vector2 velocity;
-        float speed = 500f;
+        Vector2 acceleration;
+        float maxSpeed = 500f;
+        float accelerationRate = 1750f;
+        float decelerationRate = 1250f;
 
         public Player(Texture2D sprite, Vector2 position)
         {
@@ -29,30 +32,58 @@ namespace Nosediver2
 
         void Movement(GameTime gameTime)
         {
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Vector2 input = Vector2.Zero;
+
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                velocity.Y -= 1;
+                input.Y -= 1;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                velocity.Y += 1;
+                input.Y += 1;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                velocity.X -= 1;
+                input.X -= 1;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                velocity.X += 1;
+                input.X += 1;
             }
 
-            if (velocity != Vector2.Zero)
+            if (input.LengthSquared() > 0)
+            {
+                input.Normalize();
+            }
+
+            acceleration = input * accelerationRate;
+
+            velocity += acceleration * deltaTime;
+
+            if (velocity.LengthSquared() > maxSpeed * maxSpeed)
             {
                 velocity.Normalize();
+                velocity *= maxSpeed;
             }
 
-            position += velocity * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            velocity = Vector2.Zero;
+            if (input == Vector2.Zero && velocity.LengthSquared() > 0)
+            {
+                Vector2 deceleration = -velocity;
+                deceleration.Normalize();
+                deceleration *= decelerationRate * deltaTime;
+
+                if (deceleration.LengthSquared() > velocity.LengthSquared())
+                {
+                    velocity = Vector2.Zero;
+                }
+                else
+                {
+                    velocity += deceleration;
+                }
+            }
+
+            position += velocity * deltaTime;
         }
     }
 }
