@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace Nosediver2
 {
@@ -14,6 +15,7 @@ namespace Nosediver2
 
         Player player;
         Zobject background;
+
         Effect clouds;
 
         public Game1()
@@ -39,6 +41,7 @@ namespace Nosediver2
 
             player = new Player(Content.Load<Texture2D>("diver"), new Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
             background = new Zobject(Content.Load<Texture2D>("background"), new Vector2(0, 0));
+            
             clouds = Content.Load<Effect>("Clouds");
         }
 
