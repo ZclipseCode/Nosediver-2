@@ -4,30 +4,19 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Nosediver2
 {
-    internal class Player
+    internal class Player : Zobject
     {
-        Texture2D sprite;
-        Vector2 position;
         Vector2 velocity;
         Vector2 acceleration;
         float maxSpeed = 500f;
         float accelerationRate = 1750f;
         float decelerationRate = 1250f;
 
-        public Player(Texture2D sprite, Vector2 position)
-        {
-            this.sprite = sprite;
-            this.position = position;
-        }
+        public Player(Texture2D sprite, Vector2 position) : base(sprite, position) { }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             Movement(gameTime);
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(sprite, position, Color.White);
         }
 
         void Movement(GameTime gameTime)

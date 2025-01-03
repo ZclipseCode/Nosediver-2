@@ -13,6 +13,8 @@ namespace Nosediver2
         const int WINDOW_HEIGHT = 1080;
 
         Player player;
+        Zobject background;
+        Effect clouds;
 
         public Game1()
         {
@@ -36,6 +38,8 @@ namespace Nosediver2
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             player = new Player(Content.Load<Texture2D>("diver"), new Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
+            background = new Zobject(Content.Load<Texture2D>("background"), new Vector2(0, 0));
+            clouds = Content.Load<Effect>("Clouds");
         }
 
         protected override void Update(GameTime gameTime)
@@ -50,9 +54,9 @@ namespace Nosediver2
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            //clouds.CurrentTechnique.Passes[0].Apply();
+            background.Draw(_spriteBatch);
             player.Draw(_spriteBatch);
             _spriteBatch.End();
 
