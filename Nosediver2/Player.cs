@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace Nosediver2
 {
@@ -12,7 +13,8 @@ namespace Nosediver2
         float accelerationRate = 1750f;
         float decelerationRate = 1250f;
 
-        public Player(Texture2D sprite, Vector2 position) : base(sprite, position) { }
+        public Player(Texture2D sprite, Vector2 position, string tag, List<Zobject> collidableZobjects) :
+            base(sprite, position, tag, collidableZobjects) { }
 
         public override void Update(GameTime gameTime)
         {

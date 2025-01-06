@@ -39,8 +39,8 @@ namespace Nosediver2
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            player = new Player(Content.Load<Texture2D>("diver"), new Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
-            background = new Zobject(Content.Load<Texture2D>("background"), new Vector2(0, 0));
+            player = new Player(Content.Load<Texture2D>("diver"), new Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), string.Empty, null);
+            background = new Zobject(Content.Load<Texture2D>("background"), new Vector2(0, 0), string.Empty, null);
             
             clouds = Content.Load<Effect>("Clouds");
         }

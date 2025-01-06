@@ -15,14 +15,6 @@ namespace Nosediver2
         protected List<Zobject> collidableZobjects;
         protected List<Rectangle> collisions = new List<Rectangle>();
 
-        public Zobject(Texture2D sprite, Vector2 position, string tag)
-        {
-            this.sprite = sprite;
-            this.position = position;
-            this.tag = tag;
-            collision = new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
-        }
-
         public Zobject(Texture2D sprite, Vector2 position, string tag, List<Zobject> collidableZobjects)
         {
             this.sprite = sprite;
@@ -30,64 +22,12 @@ namespace Nosediver2
             this.tag = tag;
             collision = new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
             this.collidableZobjects = collidableZobjects;
-            foreach (Zobject zobject in this.collidableZobjects)
+            if (this.collidableZobjects != null)
             {
-                collisions.Add(zobject.collision);
-            }
-        }
-
-        public Zobject(Texture2D sprite, Vector2 position)
-        {
-            this.sprite = sprite;
-            this.position = position;
-            collision = new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
-        }
-
-        public Zobject(Texture2D sprite, Vector2 position, List<Zobject> collidableZobjects)
-        {
-            this.sprite = sprite;
-            this.position = position;
-            collision = new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
-            this.collidableZobjects = collidableZobjects;
-            foreach (Zobject zobject in this.collidableZobjects)
-            {
-                collisions.Add(zobject.collision);
-            }
-        }
-
-        public Zobject(Vector2 position, string tag)
-        {
-            this.position = position;
-            this.tag = tag;
-            collision = new Rectangle((int)position.X, (int)position.Y, 0, 0);
-        }
-
-        public Zobject(Vector2 position, string tag, List<Zobject> collidableZobjects)
-        {
-            this.position = position;
-            this.tag = tag;
-            collision = new Rectangle((int)position.X, (int)position.Y, 0, 0);
-            this.collidableZobjects = collidableZobjects;
-            foreach (Zobject zobject in this.collidableZobjects)
-            {
-                collisions.Add(zobject.collision);
-            }
-        }
-
-        public Zobject(Vector2 position)
-        {
-            this.position = position;
-            collision = new Rectangle((int)position.X, (int)position.Y, 0, 0);
-        }
-
-        public Zobject(Vector2 position, List<Zobject> collidableZobjects)
-        {
-            this.position = position;
-            collision = new Rectangle((int)position.X, (int)position.Y, 0, 0);
-            this.collidableZobjects = collidableZobjects;
-            foreach (Zobject zobject in this.collidableZobjects)
-            {
-                collisions.Add(zobject.collision);
+                foreach (Zobject zobject in this.collidableZobjects)
+                {
+                    collisions.Add(zobject.collision);
+                }
             }
         }
 
