@@ -10,7 +10,7 @@ namespace Nosediver2
         public Texture2D sprite;
         public Vector2 position;
         public Rectangle collision;
-        protected string tag;
+        public string tag;
 
         protected List<Zobject> collidableZobjects;
         protected List<Rectangle> collisions = new List<Rectangle>();
@@ -20,7 +20,10 @@ namespace Nosediver2
             this.sprite = sprite;
             this.position = position;
             this.tag = tag;
-            collision = new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
+            if (sprite != null )
+            {
+                collision = new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
+            }
             this.collidableZobjects = collidableZobjects;
             if (this.collidableZobjects != null)
             {
@@ -33,11 +36,14 @@ namespace Nosediver2
 
         public void CollisionCheck()
         {
-            for (int i = 0; i < collidableZobjects.Count; i++)
+            if (collidableZobjects != null)
             {
-                if (collision.Intersects(collisions[i]))
+                for (int i = 0; i < collidableZobjects.Count; i++)
                 {
-                    OnCollisionEnter(collidableZobjects[i]);
+                    if (collision.Intersects(collisions[i]))
+                    {
+                        OnCollisionEnter(collidableZobjects[i]);
+                    }
                 }
             }
         }

@@ -18,6 +18,7 @@ namespace Nosediver2
 
         public override void Update(GameTime gameTime)
         {
+            CollisionCheck();
             Movement(gameTime);
         }
 

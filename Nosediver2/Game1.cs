@@ -15,6 +15,8 @@ namespace Nosediver2
 
         Player player;
         Zobject background;
+        
+        DrawnRectangle drawnRectangle;
 
         Effect clouds;
 
@@ -41,6 +43,8 @@ namespace Nosediver2
 
             player = new Player(Content.Load<Texture2D>("diver"), new Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), string.Empty, null);
             background = new Zobject(Content.Load<Texture2D>("background"), new Vector2(0, 0), string.Empty, null);
+
+            drawnRectangle = new DrawnRectangle(new Vector2(100, 100), 100, 100, GraphicsDevice);
             
             clouds = Content.Load<Effect>("Clouds");
         }
@@ -58,9 +62,14 @@ namespace Nosediver2
         protected override void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+
             //clouds.CurrentTechnique.Passes[0].Apply();
+            
             background.Draw(_spriteBatch);
             player.Draw(_spriteBatch);
+
+            drawnRectangle.Draw(_spriteBatch);
+
             _spriteBatch.End();
 
             base.Draw(gameTime);
